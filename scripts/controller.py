@@ -73,7 +73,7 @@ if __name__ == "__main__":
     print(farbe)
     if(farbe > max_Farbe):
         print("Die Farbe " + str(farbe) + " existiert nicht!")
-    elif(farbe == "-1"):
+    elif(farbe == -1):
         print("trigger Blink")
         trigger_blink()
     else:

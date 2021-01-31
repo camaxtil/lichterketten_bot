@@ -27,15 +27,23 @@ class Events:
         #Follow Alert
         if "!follow" in context.content.lower():
             if context.author in Events.allowed_user:
-                await self.bot.web_socket.send_privmsg(config["channel"],"Follow alert")
+                command = context.content.split(" ")
+                if(len(command) == 2):
+                    await self.bot.web_socket.send_privmsg(config["channel"],"Follow alert für " + command[1])
+                else:
+                    await self.bot.web_socket.send_privmsg(config["channel"],"Follow alert ")
                 os.system("python3 ./scripts/controller.py -1 " + Events.kette_1)
                 os.system("python3 ./scripts/controller.py -1 " + Events.kette_2)
                 os.system("python3 ./scripts/controller.py -1 " + Events.kette_3)
         
         #Sub Alert
-        if context.content.lower() == "!sub":
+        if "!sub" in context.content.lower():
             if context.author in Events.allowed_user:
-                await self.bot.web_socket.send_privmsg(config["channel"],"Sub alert")
+                command = context.content.split(" ")
+                if(len(command) == 2):
+                    await self.bot.web_socket.send_privmsg(config["channel"],"Sub alert für " + command[1])
+                else:
+                    await self.bot.web_socket.send_privmsg(config["channel"],"Sub alert ")
             for i in range(16):
                 os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_1 )
                 os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_2 )
@@ -75,3 +83,12 @@ class Events:
                 else:
                     await self.bot.web_socket.send_privmsg(config["channel"],"Diese Farbe gibt es nicht! Es gibt nur 16 Farben")
                     await self.bot.web_socket.send_privmsg(config["channel"], context.content) 
+
+        if "!off" in context.content.lower():
+            if context.author in Events.allowed_user:
+                await self.bot.web_socket.send_privmsg(config["channel"],"BYE ")
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_1)
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_2)
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_3)
+                os.system("sudo reboot")
+
