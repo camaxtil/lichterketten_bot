@@ -29,20 +29,26 @@ class Events:
             if context.author in Events.allowed_user:
                 await self.bot.web_socket.send_privmsg(config["channel"],"Follow alert")
                 os.system("python3 ./scripts/controller.py -1 " + Events.kette_1)
+                os.system("python3 ./scripts/controller.py -1 " + Events.kette_2)
+                os.system("python3 ./scripts/controller.py -1 " + Events.kette_3)
         
         #Sub Alert
-        if "!sub" in context.content.lower():
+        if context.content.lower() == "!sub":
             if context.author in Events.allowed_user:
                 await self.bot.web_socket.send_privmsg(config["channel"],"Sub alert")
             for i in range(16):
-                os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_1 + " " + Events.kette_2 + " " + Events.kette_3)
+                os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_1 )
+                os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_2 )
+                os.system("python3 ./scripts/controller.py " + str(i) + " " + Events.kette_3 )
                 time.sleep(0.5)
         
         #reset fairy lights to off
         if "!reset" in context.content.lower():
             if context.author in Events.allowed_user:
                 await self.bot.web_socket.send_privmsg(config["channel"],"Reset")
-                os.system("python3 ./scripts/controller.py 0 " + Events.kette_1 + " " + Events.kette_2 + " " + Events.kette_3)
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_1)
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_2)
+                os.system("python3 ./scripts/controller.py 0 " + Events.kette_3)
 
         #change color of fairy light
         if "!kette" in context.content.lower():
@@ -63,8 +69,9 @@ class Events:
                     await self.bot.web_socket.send_privmsg(config["channel"],"Nutzung: !sub  löst sub alert aus")
                     await self.bot.web_socket.send_privmsg(config["channel"],"Nutzung: !follow löst follow alert aus")    
                     return 0
-                if entry[2] <= "16" :
+                if int(entry[2]) <= 16 :
                     os.system("python3 ./scripts/controller.py " + str(entry[2]) + " " + kette)
                     await self.bot.web_socket.send_privmsg(config["channel"],"Ändere Farbe von Kette" + str(entry[1]) + " zu " + str(entry[2]))          
                 else:
-                    await self.bot.web_socket.send_privmsg(config["channel"],"Diese Farbe gibt es nicht! Es gibt nur 16 Farben") 
+                    await self.bot.web_socket.send_privmsg(config["channel"],"Diese Farbe gibt es nicht! Es gibt nur 16 Farben")
+                    await self.bot.web_socket.send_privmsg(config["channel"], context.content) 
