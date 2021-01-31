@@ -1,0 +1,12 @@
+authentication_bearer: AUTOMATICALLY_GENERATED
+bot_version: 1.1
+channel: 
+channel_id: 
+client_id: 
+client_secret: 
+colored_logs: COLORED_LOGS
+nick: 
+prefix: PREFIX_HERE
+startup_cogs:
+- scripts.events
+token: 
