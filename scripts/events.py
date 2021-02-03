@@ -10,7 +10,8 @@ class Events:
     kette_1 = "7"
     kette_2 = "11"
     kette_3 = "12"
-    allowed_user = ["ceda_camaxtil"]
+    allowed_user = config['allowed_user']
+    print("allowed_user: " +  allowed_user)
 
     def __init__(self, bot):
         self.bot = bot
